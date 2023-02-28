@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "twirelessSmsMessenger",
+    "slug": "twirelessSmsMessenger",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "twirelessSmsMessenger"
+}
