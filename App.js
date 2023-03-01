@@ -1,21 +1,68 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import Button from "./components/button/button";
+import axios from "axios";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function App() {
+import Preloader from "./screens/preloader";
+import Home from "./screens/Home/home";
+import { BaseURL, token } from "./secrets";
+
+const App = () => {
+
+  const api = axios.create({
+    baseURL: BaseURL,
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' },
+    
+  });
+
+  const Stack = createNativeStackNavigator();
+
+  const PushSMSAPI = async () => {
+    const formData = new FormData();
+
+    formData.append("token", token);
+    formData.append("sender", "Twireless");
+    formData.append("to", "08072565304");
+    formData.append("message", "Internet service is not available");
+    formData.append("type", "0");
+    formData.append("routing", "4");
+    // formData.append("ref_id", "unique-ref-id");
+    // formData.append("simserver_token", "simserver-token");
+    // formData.append("dlr_timeout", "dlr-timeout");
+    // formData.append("schedule", "time-in-future");
+    let res = await api
+      .post("/sms/",formData)
+      .then((result) => {
+        console.log(result);
+        console.log(
+          "________________________________________________________________"
+        );
+        console.log(result.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+    <Stack.Navigator initialRouteName="preloader">
+        <Stack.Screen name="preloader" component={Preloader}  options={{headerShown: false}}/>
+        <Stack.Screen name="home" component={Home}  options={{headerShown: false}}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
+
+export default App;
