@@ -5,10 +5,13 @@ import Button from "./components/button/button";
 import axios from "axios";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Preloader from "./screens/preloader";
 import Home from "./screens/Home/home";
 import { BaseURL, token } from "./secrets";
+import Login from "./screens/Login/login";
+import QuickBroadcast from "./screens/QuickBroadcast/quickBroadcast";
 
 const App = () => {
 
@@ -18,7 +21,7 @@ const App = () => {
     
   });
 
-  const Stack = createNativeStackNavigator();
+  const Stack = createStackNavigator();
 
   const PushSMSAPI = async () => {
     const formData = new FormData();
@@ -49,8 +52,11 @@ const App = () => {
   return (
     <NavigationContainer>
     <Stack.Navigator initialRouteName="preloader">
-        <Stack.Screen name="preloader" component={Preloader}  options={{headerShown: false}}/>
+        {/* <Stack.Screen name="preloader" component={Preloader}  options={{headerShown: false}}/>
+        <Stack.Screen name="login" component={Login}  options={{headerShown: false}}/> */}
         <Stack.Screen name="home" component={Home}  options={{headerShown: false}}/>
+        <Stack.Screen name="quickBroadcast" component={QuickBroadcast}  options={{headerShown: false} } />
+      
       </Stack.Navigator>
     </NavigationContainer>
   );

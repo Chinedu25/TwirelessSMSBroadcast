@@ -14,7 +14,7 @@ const Preloader = ({navigation}) => {
     }, 1200);
   };
   useEffect(() => {
-      NavigateToScreen('home');
+      NavigateToScreen('login');
   }, [])
   
 

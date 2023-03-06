@@ -1,1 +1,1 @@
-export const Appname = "SMSBroadcaster";
+export const Appname = "SMS Broadcaster";
