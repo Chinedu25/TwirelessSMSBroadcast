@@ -6,11 +6,21 @@ import SphereSVG from '../../assets/icons/sphere-svg.svg';
 import { GetFontSize, GetHeight, GetWidth } from '../../Util/GetDimensions';
 import GroupsIcon from "../../assets/icons/groups-icon.svg"
 import BroadCastTower from "../../assets/icons/broadcast-tower.svg"
+import BroadCastComIcon from "../../assets/icons/broadcastComIcon.svg"
+
 
 const HomeGrid = ({navigation}) => {
 
     const GoToQuickBroadcast = ()=>{
         navigation.navigate("quickBroadcast");
+    }
+
+    const GoToNewBroadcast = ()=>{
+        navigation.navigate("newBroadcast");
+    }
+
+    const GoToSectors = ()=>{
+        navigation.navigate("sectors");
     }
 
   return (
@@ -20,13 +30,13 @@ const HomeGrid = ({navigation}) => {
             <BigButton onPress={GoToQuickBroadcast} icon={<BroadCastSend width={GetWidth(58)} height={GetHeight(58)}/>} label={"Quick Broadcast" } labelHeight={GetHeight(32)}/>
             </View>
             <View style={styles.gridItem}>
-            <BigButton icon={<SphereSVG width={GetWidth(64)} height={GetHeight(64)}/>} label={"Quick Broadcast"} labelHeight={GetHeight(28)}/>
+            <BigButton onPress={GoToNewBroadcast} icon={<BroadCastComIcon width={GetWidth(72)} height={GetHeight(72)}/>} label={" New Broadcast"} labelHeight={GetHeight(32)}/>
             </View>
         </View>
 
         <View style={styles.row}>
             <View style={styles.gridItem}>
-            <BigButton icon={<SphereSVG width={GetWidth(64)} height={GetHeight(64)}/>} label={"Sectors"}/>
+            <BigButton onPress={GoToSectors} icon={<SphereSVG width={GetWidth(64)} height={GetHeight(64)}/>} label={"Sectors"}/>
             </View>
             <View style={styles.gridItem}>
             <BigButton icon={<BroadCastTower width={GetWidth(58)} height={GetHeight(58)}/>} label={"Towers"}/>

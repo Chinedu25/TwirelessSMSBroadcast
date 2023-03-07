@@ -3,12 +3,13 @@ import React from 'react'
 import { GetHeight, GetWidth, GetFontSize } from '../../Util/GetDimensions'
 import { primaryColor } from '../../Util/colors'
 
-const PlainInput = ({placeholder, value}) => {
+const PlainInput = ({placeholder, value, onValueChanged}) => {
   return (
     <View style={styles.background}>
      <TextInput
      value={value}
      style={styles.input}
+     onChangeText={onValueChanged}
      underlineColorAndroid='transparent'
      multiline={true}
     placeholder={placeholder}
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
         width: GetWidth(308),
     },
     input:{
-        height: GetHeight(226),
+        height: GetHeight(210),
         width: GetWidth(290),
         marginHorizontal:GetWidth(10),
         marginVertical: GetHeight(10),

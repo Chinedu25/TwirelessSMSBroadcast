@@ -24,17 +24,24 @@ import BroadCastTower from "../../assets/icons/broadcast-tower.svg";
 import ListIcon from "../../assets/icons/list-icon.svg";
 import PlainInput from "../../components/Input/plainInput";
 import MessageTemplateModal from "./messageTemplateModal";
+import Checkbox from "../../components/checkbox/checkbox";
 
 const QuickBroadcast = ({ navigation }) => {
   const [typeSelectionModalOpen, setTypeSelectionModalOpen] = useState(false);
   const [areaSelectionModalOpen, setAreaSelectionModalOpen] = useState(false);
   const [messageTempModalOpen, setMessageTempModalOpen] = useState(false);
 
+  const [saveTemplateOnSend, setSaveTemplateOnSend] = useState(false);
+
   const [selectedType, setSelectedType] = useState(null);
+
+  const [message, setMessage] = useState('');
 
   const typeSelectionOption = ["Group", "Sector", "Tower"];
 
   const [typeSelectedList, setTypeSelectedList] = useState([]);
+
+
 
   const TypeSelectionData = (item, i) => {
     return (
@@ -68,74 +75,94 @@ const QuickBroadcast = ({ navigation }) => {
           }}
           style={styles.box}
         >
-          
-          <View style={{justifyContent: 'space-around'}}>
-          <BackButton navigation={navigation} />
-          <View style={styles.subContainer}>
-            <Text style={styles.title}>Quick Broadcast</Text>
+          <View style={{ justifyContent: "space-around" }}>
+            <BackButton navigation={navigation} />
+            <View style={styles.subContainer}>
+              <Text style={styles.title}>Quick Broadcast</Text>
 
-            <View style={{ marginTop: GetHeight(48) }}>
-              <DropDown
-                value={selectedType}
-                onPress={() => {
-                  setTypeSelectionModalOpen(!typeSelectionModalOpen);
-                }}
-                iconImage={
-                  selectedType == null || "" ? (
-                    <></>
-                  ) : selectedType == "Group" ? (
-                    <GroupsIcon width={GetWidth(24)} height={GetHeight(24)} />
-                  ) : selectedType == "Sector" ? (
-                    <SphereSVG width={GetWidth(24)} height={GetHeight(24)} />
-                  ) : selectedType == "Tower" ? (
-                    <BroadCastTower
-                      width={GetWidth(24)}
-                      height={GetHeight(24)}
-                    />
-                  ) : (
-                    <UserIcon width={GetWidth(24)} height={GetHeight(24)} />
-                  )
-                }
-                placeholder={"Select type"}
-              />
-            </View>
+              <View style={{ marginTop: GetHeight(48) }}>
+                <DropDown
+                  value={selectedType}
+                  onPress={() => {
+                    setTypeSelectionModalOpen(!typeSelectionModalOpen);
+                  }}
+                  iconImage={
+                    selectedType == null || "" ? (
+                      <></>
+                    ) : selectedType == "Group" ? (
+                      <GroupsIcon width={GetWidth(24)} height={GetHeight(24)} />
+                    ) : selectedType == "Sector" ? (
+                      <SphereSVG width={GetWidth(24)} height={GetHeight(24)} />
+                    ) : selectedType == "Tower" ? (
+                      <BroadCastTower
+                        width={GetWidth(24)}
+                        height={GetHeight(24)}
+                      />
+                    ) : (
+                      <UserIcon width={GetWidth(24)} height={GetHeight(24)} />
+                    )
+                  }
+                  placeholder={"Select type"}
+                />
+              </View>
 
-            <View
-              style={{
-                marginTop: GetHeight(19),
-                opacity: selectedType != null || "" ? 1 : 0.4,
-              }}
-            >
-              <DropDown
-                onPress={() => {
-                  if (selectedType == null || "") return;
-                  setAreaSelectionModalOpen(true);
+              <View
+                style={{
+                  marginTop: GetHeight(19),
+                  opacity: selectedType != null || "" ? 1 : 0.4,
                 }}
-                iconImage={
-                  <ListIcon width={GetWidth(34)} height={GetHeight(34)} />
-                }
-                value={typeSelectedList}
-                placeholder={
-                  selectedType != null || "" ? "Select " + selectedType : "...."
-                }
-              />
-            </View>
-            <View style={{ marginTop: GetHeight(34) }}>
-              <PlainInput placeholder={"Write a message"} />
-            </View>
-            <TouchableOpacity 
-            onPress={()=>{
-              setMessageTempModalOpen(true);
-            }}
-            style={{ marginTop: GetHeight(16) }}>
-              <Text style={styles.miniTextButton}>Message Template</Text>
-            </TouchableOpacity>
-            <View style={{ marginTop: GetHeight(41) }}>
-              <FlatButton title={"Send"} />
+              >
+                <DropDown
+                  onPress={() => {
+                    if (selectedType == null || "") return;
+                    setAreaSelectionModalOpen(true);
+                  }}
+                  iconImage={
+                    <ListIcon width={GetWidth(34)} height={GetHeight(34)} />
+                  }
+                  value={typeSelectedList}
+                  placeholder={
+                    selectedType != null || ""
+                      ? "Select " + selectedType
+                      : "...."
+                  }
+                />
+              </View>
+              <View style={{ marginTop: GetHeight(34) }}>
+                <PlainInput 
+                onValueChanged={(value)=>{
+                  setMessage(value);
+                }}
+                value={message}
+                placeholder={"Write a message"} />
+              </View>
+              <TouchableOpacity
+                onPress={() => {
+                  setMessageTempModalOpen(true);
+                }}
+                style={{ marginTop: GetHeight(16) }}
+              >
+                <Text style={styles.miniTextButton}>Message Template</Text>
+              </TouchableOpacity>
+              <View style={{ marginTop: GetHeight(41) }}>
+                <FlatButton title={"Send"} />
+              </View>
+              <View
+                style={{
+                  marginLeft: GetWidth(200),
+                  marginVertical: GetHeight(12),
+                }}
+              >
+                <Checkbox
+                  isChecked={saveTemplateOnSend}
+                  label={"Save template"}
+                  onPress={() => {
+                    setSaveTemplateOnSend(!saveTemplateOnSend);
+                  }}
+                />
+              </View>
             </View>
           </View>
-          </View>
- 
 
           {typeSelectionModalOpen === true ? (
             <ModalA
@@ -165,13 +192,19 @@ const QuickBroadcast = ({ navigation }) => {
             <></>
           )}
 
-          {messageTempModalOpen === true ?
-        <MessageTemplateModal onCancelAction={()=>{
-          setMessageTempModalOpen(false);
-        }}/>
-        :
-        <></>  
-        }
+          {messageTempModalOpen === true ? (
+            <MessageTemplateModal
+              onCancelAction={() => {
+                setMessageTempModalOpen(false);
+              }}
+              onSelectTemplate={(_item)=>{
+               setMessage(_item);
+             
+              }}
+            />
+          ) : (
+            <></>
+          )}
         </LinearGradient>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
@@ -202,7 +235,6 @@ const styles = StyleSheet.create({
   },
   subContainer: {
     alignItems: "center",
-     
   },
   miniTextButton: {
     textAlign: "right",

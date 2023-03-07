@@ -10,7 +10,7 @@ import { GetHeight, GetWidth, GetFontSize } from "../../Util/GetDimensions";
 import FlatButton from "../button/button";
 import PlainInput from "../Input/plainInput";
 
-const CreateMessageModal = ({inputValue ,inputPlaceholder,onCancelAction, title, actionButtonTitle, onPressAction }) => {
+const CreateMessageModal = ({inputValue,onValueChanged ,inputPlaceholder,onCancelAction, title, actionButtonTitle, onPressAction }) => {
   return (
     <View style={styles.root}>
       <TouchableOpacity
@@ -33,7 +33,10 @@ const CreateMessageModal = ({inputValue ,inputPlaceholder,onCancelAction, title,
           <Text style={styles.title}>{title}</Text>
           <View style={{ marginTop: GetHeight(38) }}>
 
-          <PlainInput placeholder={inputPlaceholder}/>
+          <PlainInput 
+          value={inputValue}
+          onValueChanged={onValueChanged}
+          placeholder={inputPlaceholder}/>
           </View>
 
 

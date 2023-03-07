@@ -19,10 +19,17 @@ const MessageTemplateModal = ({ onCancelAction, onSelectTemplate }) => {
   const [showAddMessageTemp, setShowAddMessageTemp] = useState(false);
   const [showEditMessageTemp, setShowEditMessageTemp] = useState(false);
 
+  const [editMessageValue, setEditMessageValue] = useState(null);
+
   const messageDataPrefab = ({ item, i }, index) => {
+
+
     return (
       <TouchableOpacity
-        onPress={onSelectTemplate}
+        onPress={()=>{
+        onSelectTemplate(item);
+        onCancelAction();
+        }}
         style={styles.container}
         key={i}
       >
@@ -31,6 +38,7 @@ const MessageTemplateModal = ({ onCancelAction, onSelectTemplate }) => {
           <TouchableOpacity 
           onPress={()=>{
               setShowEditMessageTemp(true);
+              setEditMessageValue(item)
           }}
           style={{ marginRight: GetWidth(5) }}>
             <EditFileIcon width={GetWidth(18)} height={GetHeight(18)} />
@@ -85,6 +93,10 @@ const MessageTemplateModal = ({ onCancelAction, onSelectTemplate }) => {
           title={"Edit Message Template"}
           inputPlaceholder={'Write new message'}
           actionButtonTitle={"Confirm"}
+          inputValue={editMessageValue}
+          onValueChanged={(_value)=>{
+              setEditMessageValue(_value)
+          }}
           onCancelAction={()=>{
               setShowEditMessageTemp(false);
           }}

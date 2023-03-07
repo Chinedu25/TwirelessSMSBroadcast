@@ -12,6 +12,8 @@ import Home from "./screens/Home/home";
 import { BaseURL, token } from "./secrets";
 import Login from "./screens/Login/login";
 import QuickBroadcast from "./screens/QuickBroadcast/quickBroadcast";
+import NewBroadcast from "./screens/NewBroadcast/newBroadcast";
+import Sectors from "./screens/Sectors/sectors";
 
 const App = () => {
 
@@ -56,7 +58,8 @@ const App = () => {
         <Stack.Screen name="login" component={Login}  options={{headerShown: false}}/> */}
         <Stack.Screen name="home" component={Home}  options={{headerShown: false}}/>
         <Stack.Screen name="quickBroadcast" component={QuickBroadcast}  options={{headerShown: false} } />
-      
+        <Stack.Screen name="newBroadcast" component={NewBroadcast}  options={{headerShown: false} } />
+        <Stack.Screen name="sectors" component={Sectors}  options={{headerShown: false} } />
       </Stack.Navigator>
     </NavigationContainer>
   );
