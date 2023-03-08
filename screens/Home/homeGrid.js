@@ -19,7 +19,7 @@ const HomeGrid = ({navigation}) => {
         navigation.navigate("newBroadcast");
     }
 
-    const GoToSectors = ()=>{
+    const GoToTypePage = (type)=>{
         navigation.navigate("sectors");
     }
 
