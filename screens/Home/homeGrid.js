@@ -7,6 +7,7 @@ import { GetFontSize, GetHeight, GetWidth } from '../../Util/GetDimensions';
 import GroupsIcon from "../../assets/icons/groups-icon.svg"
 import BroadCastTower from "../../assets/icons/broadcast-tower.svg"
 import BroadCastComIcon from "../../assets/icons/broadcastComIcon.svg"
+import { SectorsData } from '../../components/DummyData/data';
 
 
 const HomeGrid = ({navigation}) => {
@@ -19,8 +20,11 @@ const HomeGrid = ({navigation}) => {
         navigation.navigate("newBroadcast");
     }
 
-    const GoToTypePage = (type)=>{
-        navigation.navigate("sectors");
+    const GoToTypePage = (type, data)=>{
+        console.log('Entered ', type);
+        navigation.navigate("sectors", {
+            data: data
+        });
     }
 
   return (
@@ -36,7 +40,7 @@ const HomeGrid = ({navigation}) => {
 
         <View style={styles.row}>
             <View style={styles.gridItem}>
-            <BigButton onPress={GoToSectors} icon={<SphereSVG width={GetWidth(64)} height={GetHeight(64)}/>} label={"Sectors"}/>
+            <BigButton onPress={()=>{GoToTypePage('Sectors', SectorsData)}} icon={<SphereSVG width={GetWidth(64)} height={GetHeight(64)}/>} label={"Sectors"}/>
             </View>
             <View style={styles.gridItem}>
             <BigButton icon={<BroadCastTower width={GetWidth(58)} height={GetHeight(58)}/>} label={"Towers"}/>

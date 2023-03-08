@@ -1,12 +1,21 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { LinearGradient } from "expo-linear-gradient";
 import { lightColor, bigButtonColorA, primaryColor } from "../../Util/colors";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BackButton from "../../components/button/backButton";
 import { GetFontSize, GetHeight, GetWidth } from "../../Util/GetDimensions";
 import SearchBar from '../../components/searchbar/searchBar';
+import FlatButton from "../../components/button/button";
 
-const Sectors = ({navigation, data}) => {
+
+const Sectors = ({navigation, route}) => {
+
+  const data = route.params.data;
+
+  useEffect(()=>{
+console.log(data);
+  },[])
+
   return (
     <LinearGradient
     colors={["white", lightColor]}
