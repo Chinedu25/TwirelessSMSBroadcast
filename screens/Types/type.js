@@ -1,12 +1,31 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
 import { LinearGradient } from "expo-linear-gradient";
 import { lightColor, bigButtonColorA, primaryColor } from "../../Util/colors";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BackButton from "../../components/button/backButton";
 import { GetFontSize, GetHeight, GetWidth } from "../../Util/GetDimensions";
 import SearchBar from '../../components/searchbar/searchBar';
+import FlatButton from "../../components/button/button";
+import AddTypeModal from '../../components/Modal/addTypeModal';
 
-const Sectors = ({navigation, data}) => {
+
+const Type = ({navigation, route}) => {
+
+  const data = route.params.data;
+  const type = route.params.type;
+
+  const [showAddType, setShowAddType] = useState(false);
+
+  const GoToOpenedType = (selectedType, data)=>{
+    navigation.navigate('opened-type',{
+      selectedType: selectedType
+    })
+  }
+
+  useEffect(()=>{
+console.log(data);
+  },[])
+
   return (
     <LinearGradient
     colors={["white", lightColor]}
@@ -24,10 +43,10 @@ const Sectors = ({navigation, data}) => {
       <BackButton navigation={navigation} />
       <View style={styles.subContainer}>
         <View>
-        <Text style={styles.title}>Sectors</Text>
+        <Text style={styles.title}>{type}</Text>
         </View>
         <View style={{marginTop:GetHeight(20)}}>
-            <SearchBar placeholder={'sector'} />
+            <SearchBar placeholder={type} />
         </View>
         <FlatList
           persistentScrollbar={true}
@@ -40,23 +59,35 @@ const Sectors = ({navigation, data}) => {
                   buttonStyle={"labelColor"}
                   title={item}
                   onPress={() => {
+                    GoToOpenedType(item);
                   }}
                 />
               </View>
             );
           }}
           />
-
-          <Text style={styles.textButton}>
-              + Create new sector
+<TouchableOpacity onPress={()=>{
+  setShowAddType(true);
+}}>
+<Text style={styles.textButton}>
+              + Create new {type}
           </Text>
+</TouchableOpacity>
+
       </View>
+
     </View>
+    {
+          showAddType === true ?
+          <AddTypeModal onCancelAction={()=>{setShowAddType(false)}} title={type}/>
+          :
+          <></>
+      }
   </LinearGradient>
   )
 }
 
-export default Sectors;
+export default Type;
 
 const styles = StyleSheet.create({
     container: {
