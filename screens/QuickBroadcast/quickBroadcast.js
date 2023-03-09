@@ -17,7 +17,7 @@ import UserIcon from "../../assets/icons/UserIcon.svg";
 import ModalA from "../../components/Modal/modalA";
 import FlatButton from "../../components/button/button";
 import ModalB from "../../components/Modal/modalB";
-import { SectorsData } from "../../components/DummyData/data";
+import { GroupData, SectorsData } from "../../components/DummyData/data";
 import GroupsIcon from "../../assets/icons/groups-icon.svg";
 import SphereSVG from "../../assets/icons/sphere-svg.svg";
 import BroadCastTower from "../../assets/icons/broadcast-tower.svg";
@@ -43,7 +43,7 @@ const QuickBroadcast = ({ navigation }) => {
 
 
 
-  const TypeSelectionData = (item, i) => {
+  const  TypeSelectionData = (item, i) => {
     return (
       <View style={{ marginTop: GetHeight(19) }} key={i}>
         <FlatButton
@@ -186,7 +186,7 @@ const QuickBroadcast = ({ navigation }) => {
                 //   setAreaSelectionModalOpen(!areaSelectionModalOpen);
               }}
               title={selectedType}
-              data={SectorsData}
+              data={selectedType === 'Group' ? GroupData : SectorsData}
             />
           ) : (
             <></>

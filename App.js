@@ -13,7 +13,8 @@ import { BaseURL, token } from "./secrets";
 import Login from "./screens/Login/login";
 import QuickBroadcast from "./screens/QuickBroadcast/quickBroadcast";
 import NewBroadcast from "./screens/NewBroadcast/newBroadcast";
-import Sectors from "./screens/Sectors/sectors";
+import Type from "./screens/Types/type";
+import OpenedType from "./screens/Types/opened-type";
 
 const App = () => {
 
@@ -59,7 +60,8 @@ const App = () => {
         <Stack.Screen name="home" component={Home}  options={{headerShown: false}}/>
         <Stack.Screen name="quickBroadcast" component={QuickBroadcast}  options={{headerShown: false} } />
         <Stack.Screen name="newBroadcast" component={NewBroadcast}  options={{headerShown: false} } />
-        <Stack.Screen name="sectors" component={Sectors}  options={{headerShown: false} } />
+        <Stack.Screen name="type" component={Type}  options={{headerShown: false} } />
+        <Stack.Screen name="opened-type" component={OpenedType}  options={{headerShown: false} } />
       </Stack.Navigator>
     </NavigationContainer>
   );

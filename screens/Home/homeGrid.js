@@ -7,7 +7,7 @@ import { GetFontSize, GetHeight, GetWidth } from '../../Util/GetDimensions';
 import GroupsIcon from "../../assets/icons/groups-icon.svg"
 import BroadCastTower from "../../assets/icons/broadcast-tower.svg"
 import BroadCastComIcon from "../../assets/icons/broadcastComIcon.svg"
-import { SectorsData } from '../../components/DummyData/data';
+import { SectorsData, GroupData, TowerData } from '../../components/DummyData/data';
 
 
 const HomeGrid = ({navigation}) => {
@@ -22,8 +22,9 @@ const HomeGrid = ({navigation}) => {
 
     const GoToTypePage = (type, data)=>{
         console.log('Entered ', type);
-        navigation.navigate("sectors", {
-            data: data
+        navigation.navigate("type", {
+            data: data,
+            type: type
         });
     }
 
@@ -43,13 +44,13 @@ const HomeGrid = ({navigation}) => {
             <BigButton onPress={()=>{GoToTypePage('Sectors', SectorsData)}} icon={<SphereSVG width={GetWidth(64)} height={GetHeight(64)}/>} label={"Sectors"}/>
             </View>
             <View style={styles.gridItem}>
-            <BigButton icon={<BroadCastTower width={GetWidth(58)} height={GetHeight(58)}/>} label={"Towers"}/>
+            <BigButton onPress={()=>{GoToTypePage('Towers', TowerData)}} icon={<BroadCastTower width={GetWidth(58)} height={GetHeight(58)}/>} label={"Towers"}/>
             </View>
         </View>
 
         <View style={styles.row}>
             <View style={styles.gridItem}>
-            <BigButton icon={<GroupsIcon width={GetWidth(58)} height={GetHeight(58)}/>} label={"Groups"}/>
+            <BigButton onPress={()=>{GoToTypePage('Groups', GroupData)}} icon={<GroupsIcon width={GetWidth(58)} height={GetHeight(58)}/>} label={"Groups"}/>
             </View>
             <View style={styles.gridItem}>
             <BigButton icon={<BroadCastSend width={GetWidth(58)} height={GetHeight(58)}/>} label={"Quick Broadcast"}/>
