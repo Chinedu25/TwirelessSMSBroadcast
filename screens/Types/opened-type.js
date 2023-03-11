@@ -54,10 +54,21 @@ const OpenedType = ({ navigation, route }) => {
                     buttonStyle={"labelColor"}
                     title={item}
                     onPress={() => {}}
+                   
                   />
                 </View>
               );
             }}
+            ListFooterComponent={() => (
+                <TouchableOpacity
+                onPress={()=>{
+                   // setShowAddType(true);
+                }}
+                  style={{ marginVertical: GetHeight(36), alignSelf: "center" }}
+                >
+                  <Text style={styles.addText}>+ Add a client</Text>
+                </TouchableOpacity>
+              )}
           />
           <TouchableOpacity>
             <Text style={styles.textButton}>Send broadcast -{">"}</Text>
@@ -110,5 +121,16 @@ const styles = StyleSheet.create({
     color: primaryColor,
     marginLeft: GetWidth(193),
     marginTop: GetHeight(32),
+  },
+  addText: {
+    textAlign: "center",
+    fontFamily: "Gothic A1",
+    fontStyle: "normal",
+    fontWeight: "800",
+    fontSize: GetFontSize(14),
+    lineHeight: GetFontSize(18),
+    display: "flex",
+    alignSelf: "center",
+    color: lightColor,
   },
 });
